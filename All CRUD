@@ -1,0 +1,196 @@
+<?php
+
+	session_start();
+	
+	$con = mysqli_connect("localhost","root","","Sakshi");
+	
+	if($_POST['btnSearch'])
+		{
+			$search = $_POST['txtSearch'];
+			$user = $_SESSION['login'];
+			
+			$search1 = "select * from a1 where ID = '$search'";
+			
+			$data = mysqli_query($con, $search1);
+			
+			$result = mysqli_fetch_assoc($data);
+				if($result)
+					{
+					}
+				else
+					{
+						echo "<script>alert('No Data Found')</script>";
+					}
+		}
+
+?>
+
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Untitled Document</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+</head>
+
+<body>
+<form name="form1" method="post" action="">
+  <div align="center">
+    <table width="412" border="1">
+      <tr>
+        <td width="108">Search</td>
+        <td width="288"><input name="txtSearch" type="text" id="txtSearch"></td>
+      </tr>
+      <tr>
+        <td>ID</td>
+        <td><input name="txtID" type="text" id="txtID" value = "<?php if($_POST['btnSearch']) {echo $result['ID'];}  ?>"></td>
+      </tr>
+      <tr>
+        <td>Name</td>
+        <td><input name="txtName" type="text" id="txtName" value = "<?php if($_POST['btnSearch']) {echo $result['Name'];}  ?>"></td>
+      </tr>
+      <tr>
+        <td>Gender</td>
+        <td><input name="gender" type="radio" value="Male">
+          Male 
+          <input name="gender" type="radio" value="Female">
+          Female</td>
+      </tr>
+      <tr>
+        <td>DOB</td>
+        <td><input name="txtDOB" type="date" id="txtDOB" value = "<?php if($_POST['btnSearch']){echo $result['DOB'];}?>"></td>
+      </tr>
+      <tr>
+        <td>Address</td>
+        <td><textarea name="txtAdd" id="txtAdd"><?php if($_POST['btnSearch']){echo $result['Address'];}?></textarea>		</td>
+      </tr>
+      <tr>
+        <td>City</td>
+        <td><select name="txtCity" id="txtCity">
+          <option>Surat</option>
+          <option>Mumbai</option>
+          <option>Kota</option>
+          <option>Jaipur</option>
+        </select></td>
+      </tr>
+      <tr>
+        <td>Mobile</td>
+        <td><input name="txtMob" type="text" id="txtMob" value = "<?php if($_POST['btnSearch']) {echo $result['Mobile'];} ?>"></td>
+      </tr>
+      <tr>
+        <td>Email</td>
+        <td><input name="txtEmail" type="text" id="txtEmail" value = "<?php if($_POST['btnSearch']) {echo $result['Email'];}   ?>"></td>
+      </tr>
+      <tr>
+        <td>Password</td>
+        <td><input name="txtPass" type="password" id="txtPass" value = "<?php if($_POST['btnSearch']) {echo $result['Password'];}   ?>"></td>
+      </tr>
+      <tr>
+        <td><div align="center">
+          <input name="btnInsert" type="submit" id="btnInsert" value="Insert">
+        </div></td>
+        <td><p>
+            <input name="btnUpdate" type="submit" id="btnUpdate" value="Update"> 
+            <input name="btnDelete" type="submit" id="btnDelete" value="Delete"> 
+            <input name="btnSearch" type="submit" id="btnSearch" value="Search"> 
+            <input name="btnReset" type="reset" id="btnReset" value="Reset">
+        </p>
+          <p>&nbsp;</p>
+          <p align="center">
+            <input name="btnData" type="submit" id="btnDelete3" value="Data">
+                  
+            </p></td>
+      </tr>
+      </table>
+  </div>
+</form>
+</body>
+</html>
+
+
+<?php
+
+	$con = mysqli_connect("localhost","root","","Sakshi");
+	
+	if($_POST['btnInsert'])
+		{
+			$id = $_POST['txtID'];
+			$name = $_POST['txtName'];
+			$gender = $_POST['gender'];
+			$dob = $_POST['txtDOB'];
+			$add = $_POST['txtAdd'];
+			$city = $_POST['txtCity'];
+			$mob = $_POST['txtMob'];
+			$email = $_POST['txtEmail'];
+			$pass = $_POST['txtPass'];
+			
+			$insert = "insert into a1 values('$id', '$name', '$gender', '$dob', '$add', '$city', '$mob', '$email', '$pass')";
+			
+			$data = mysqli_query($con, $insert);
+				if($data)
+					
+					
+					{
+						echo "<script>alert('Inserted')</script>";
+					}
+		}
+
+?>
+
+
+<?php
+
+	$con = mysqli_connect("localhost","root","","Sakshi");
+	
+	if($_POST['btnUpdate'])
+		{
+			$id = $_POST['txtID'];
+			$name = $_POST['txtName'];
+			$gender = $_POST['gender'];
+			$dob = $_POST['txtDOB'];
+			$add = $_POST['txtAdd'];
+			$city = $_POST['txtCity'];
+			$mob = $_POST['txtMob'];
+			$email = $_POST['txtEmail'];
+			$pass = $_POST['txtPass'];
+			
+			$update = "update a1 set Name = '$name', Gender = '$gender', DOB = '$dob', Address = '$add', City = '$city', Mobile = '$mob', Email = '$email', Password = '$pass' where ID = '$id'";
+			
+			$data = mysqli_query($con, $update);
+				if($data)
+					{
+						echo "<script>alert('Updated')</script>";
+					}
+		}
+
+?>
+
+
+<?php
+
+	$con = mysqli_connect("localhost","root","","Sakshi");
+	
+	if($_POST['btnDelete'])
+		{
+			$id = $_POST['txtID'];
+			
+			$delete = "delete from a1 where ID = '$id'";
+			
+			$data = mysqli_query($con, $delete);
+				if($data)
+					{
+						echo "<script>alert('Deleted')</script>";
+					}
+		}
+
+?>
+
+<?php
+$con = mysqli_connect("localhost","root","","Sakshi");
+	
+	if($_POST['btnData'])
+		{
+			header("location:adata.php");
+		}
+
+?>
